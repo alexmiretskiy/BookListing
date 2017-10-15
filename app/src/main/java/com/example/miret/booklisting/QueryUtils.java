@@ -55,7 +55,7 @@ public final class QueryUtils {
     InputStream inputStream = null;
     try {
       urlConnection = (HttpURLConnection) url.openConnection();
-      urlConnection.setReadTimeout(1000);
+      urlConnection.setReadTimeout(5000);
       urlConnection.setConnectTimeout(15000);
       urlConnection.setRequestMethod("GET");
       urlConnection.connect();
@@ -120,7 +120,12 @@ public final class QueryUtils {
           poster = null;
         }
 
-        Book book = new Book(title, poster);
+        JSONArray authors = volumeInfo.getJSONArray("authors");
+        String[] authorsArray = new String[authors.length()];
+        for (int j = 0; j < authors.length(); j++) {
+          authorsArray[j] = authors.getString(j);
+        }
+        Book book = new Book(title, poster, authorsArray);
         books.add(book);
       }
     } catch (JSONException e) {
