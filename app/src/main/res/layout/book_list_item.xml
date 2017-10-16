@@ -8,7 +8,7 @@
   <ImageView
     android:id="@+id/poster_image_view"
     android:layout_width="88dp"
-    android:layout_height="88dp"
+    android:layout_height="128dp"
     />
   <LinearLayout
     android:id="@+id/text_container"
@@ -23,7 +23,7 @@
       android:textStyle="bold"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_weight="1"
+      android:layout_weight="0.5"
       android:gravity="bottom"
       android:textAppearance="?android:textAppearanceSmall"
       tools:text="Author"
