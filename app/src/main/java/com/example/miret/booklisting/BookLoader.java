@@ -4,14 +4,13 @@ import android.content.AsyncTaskLoader;
 import android.content.Context;
 import java.util.List;
 
-
-public class BookLoader extends AsyncTaskLoader<List<Book>> {
+class BookLoader extends AsyncTaskLoader<List<Book>> {
 
   public static final String LOG_TAG = BookLoader.class.getSimpleName();
 
   private String mUrl;
 
-  public BookLoader(Context context, String mUrl) {
+  BookLoader(Context context, String mUrl) {
     super(context);
     this.mUrl = mUrl;
   }

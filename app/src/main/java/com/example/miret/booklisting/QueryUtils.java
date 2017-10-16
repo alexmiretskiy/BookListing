@@ -112,6 +112,9 @@ public final class QueryUtils {
         JSONObject volumeInfo = currentBook.getJSONObject("volumeInfo");
 
         String title = volumeInfo.getString("title");
+
+        String infoLink = volumeInfo.getString("infoLink");
+
         String poster;
         try {
           JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
@@ -119,13 +122,17 @@ public final class QueryUtils {
         } catch (JSONException e) {
           poster = null;
         }
-
-        JSONArray authors = volumeInfo.getJSONArray("authors");
-        String[] authorsArray = new String[authors.length()];
-        for (int j = 0; j < authors.length(); j++) {
-          authorsArray[j] = authors.getString(j);
+        String[] authorsArray;
+        try {
+          JSONArray authors = volumeInfo.getJSONArray("authors");
+          authorsArray = new String[authors.length()];
+          for (int j = 0; j < authors.length(); j++) {
+            authorsArray[j] = authors.getString(j);
+          }
+        } catch (NullPointerException | JSONException e) {
+          authorsArray = null;
         }
-        Book book = new Book(title, poster, authorsArray);
+        Book book = new Book(title, poster, authorsArray, infoLink);
         books.add(book);
       }
     } catch (JSONException e) {

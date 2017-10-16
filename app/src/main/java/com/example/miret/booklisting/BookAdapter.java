@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,14 +16,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class BookAdapter extends ArrayAdapter<Book> {
+class BookAdapter extends ArrayAdapter<Book> {
 
-  public BookAdapter(Context context, List<Book> books) {
+  BookAdapter(Context context, List<Book> books) {
     super(context, 0, books);
   }
 
+  @NonNull
   @Override
-  public View getView(int position, View convertView, ViewGroup parent) {
+  public View getView(int position, View convertView, @NonNull ViewGroup parent) {
     View listItemView = convertView;
 
     if (listItemView == null) {
@@ -44,7 +46,6 @@ public class BookAdapter extends ArrayAdapter<Book> {
 //      Picasso.with(getContext()).load(currentBook.getPoster()).into(posterImageView);
 //    }
 
-
     return listItemView;
   }
 
@@ -52,7 +53,7 @@ public class BookAdapter extends ArrayAdapter<Book> {
 
     ImageView thumbnailImageView;
 
-    public DownloadImageTask(ImageView thumbnailImageView) {
+    DownloadImageTask(ImageView thumbnailImageView) {
       this.thumbnailImageView = thumbnailImageView;
     }
 
@@ -77,15 +78,18 @@ public class BookAdapter extends ArrayAdapter<Book> {
   }
 
   private String getAuthorsString(String[] authorsArray) {
-    StringBuilder output = new StringBuilder();
-    String[] authors = authorsArray;
-    for (int i = 0; i < authors.length; i++) {
-      if (authors.length > 1 && i < authors.length - 1) {
-        output.append(authors[i] + ", ");
-      } else {
-        output.append(authors[i] + ".");
+    if (authorsArray != null) {
+      StringBuilder output = new StringBuilder();
+      for (int i = 0; i < authorsArray.length; i++) {
+        if (authorsArray.length > 1 && i < authorsArray.length - 1) {
+          output.append(authorsArray[i]).append(", ");
+        } else {
+          output.append(authorsArray[i]).append(".");
+        }
       }
+      return output.toString();
+    } else {
+      return null;
     }
-    return output.toString();
   }
 }

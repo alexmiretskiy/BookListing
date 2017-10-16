@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
-  private String primaryRequestUrl = "https://www.googleapis.com/books/v1/volumes?q=example&maxResults=30";
+  private String primaryRequestUrl = "https://www.googleapis.com/books/v1/volumes?q=example&maxResults=40";
 
   Button button;
 
